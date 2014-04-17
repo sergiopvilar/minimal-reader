@@ -9,15 +9,17 @@ App.Controller.Subscription = function(){
 
 	this.list = function(callback){
 
-		var model = new App.Model.Subscription();
+		new App.Model.Subscription(function(model){
 
-		model.fetch().done(function(data){
+			model.fetch().done(function(data){
 			
-			if(callback){
-				callback(data);
-			}
+				if(callback){
+					callback(data);
+				}
 
-		});
+			});	
+
+		});		
 
 	};
 
@@ -25,13 +27,10 @@ App.Controller.Subscription = function(){
 
 		var model = new App.Model.Subscription();
 
-		var object = {};
+		model.save(subscription).done(function(){
+		
+			console.log('cadastrou!');
 
-		$.each(subscription, function(key, value){
-			object[key] = value;
-		});
-
-		model.save(object).done(function(){
 			if(callback){
 				callback();
 			}

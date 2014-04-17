@@ -46,13 +46,19 @@
         </div>
     </script>
 
-    <div class="no-subscription hidden">
-      <div class="wrapper">
-        <span class="text">Você ainda não se inscreveu em nenhum feed, gostaria de adicionar o primeiro?</span>
-        <form id="homeAddSubscription" class="addSubscription">
+    <script id="add-subscription-tpl" type="text/x-template">
+
+        <form id="<%=form_id%>" class="addSubscription">
             <input type="text" name="subscription" placeholder="Insira a url do feed" />
             <a class="btn confirmation continue">Cadastrar</a>
         </form>
+
+    </script>
+
+    <div class="no-subscription hidden">
+      <div class="wrapper">
+        <span class="text">Você ainda não se inscreveu em nenhum feed, gostaria de adicionar o primeiro?</span>
+            <div id="homeAddSubscription"></div>
         <br/>        
       </div>
     </div>
@@ -62,16 +68,23 @@
     <script src="js/vendor/backbone-1.1.0.js"></script>
     <script src="js/vendor/marionette.1.6.4.js"></script>
     <script src="js/vendor/bootstrap-tooltip.min.js"></script>
+    <script src="js/vendor/mediator.min.js"></script>
 
     <script src="js/vendor/settings.js"></script>
 
     <script src="js/app.js"></script>
+    <script src="js/frontend/util.js"></script>
     <script src="js/frontend/ui.js"></script>
 
     <script src="js/frontend/model/subscription.js"></script>
     <script src="js/frontend/controller/subscription.js"></script>
 
-    <script src="js/frontend/home.js"></script>
+    <script src="js/frontend/view/AddSubscription.js"></script>
+    <script src="js/frontend/page/home.js"></script>
+
+    <script type="text/javascript">
+        new App.Page.Home();
+    </script>
 
 
     <!--

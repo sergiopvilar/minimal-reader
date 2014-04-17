@@ -11,7 +11,7 @@ App.Model.Subscription = Backbone.Model.extend({
 		id: 0,
 		title: '',
 		url: ''
-	},
+	},	
 
 	db: 'clear-reader',
 
@@ -19,41 +19,64 @@ App.Model.Subscription = Backbone.Model.extend({
 		return openDatabase(this.db, '1.0', 'Banco de dados do Clear Reader', 2 * 1024 * 1024);
 	},
 
-	initialize: function(){
+	initialize: function(callback){
 
-		var db = this.openDb();
+		var that = this;
+
+		var db = this.openDb();				
 
 		db.transaction(function (tx) {  
-			tx.executeSql('CREATE TABLE IF NOT EXISTS subscriptions (id unique, title, url)');  
+
+			console.log('Criando a tabela');
+			
+			//tx.executeSql('CREATE TABLE IF NOT EXISTS subscriptions (id unique INTEGER AUTO_INCREMENT, title, url)', function(){
+
+			tx.executeSql('CREATE TABLE IF NOT EXISTS subscriptions (id unique, title, url)', function(){
+
+				console.log('criou!');
+
+				if(callback){
+					callback(that);
+				}					
+
+			}, function(error){
+				console.log('error no create')
+				console.log(error);
+
+				if(callback){
+					callback(that);
+				}	
+
+			});  
+
 		});
 
 	},
 
 	// Salva a subscription
-	save: function(attrs, options){
+	save: function(attrs, options){	
 
-		var db = this.openDb();
-		var retorno = new Retorno();
+		var that = this;	
 
-		// Create
-		if(typeof attrs.id !== 'undefined'){
+		var db = that.openDb(),
+			retorno = new Retorno(),
+			sql;
 
-			db.transaction(function (tx) {  
-				tx.executeSql('INSERT INTO subscriptions (title, url) VALUES ('+attrs.title+', '+title.url+')', function(){
-					retorno.done();
-				});  
-			});
-
-		// Update
+		// Create or update
+		if(typeof attrs.id !== 'undefined' && attrs.id !== 0){
+			sql = 'UPDATE subscriptions (title, url) VALUES ('+attrs.title+', '+attrs.url+') WHERE id = "'+attrs.id+'"'			
 		}else{
+			sql = 'INSERT INTO subscriptions (title, url) VALUES ("'+attrs.title+'", "'+attrs.url+'")';			
+		}		
 
-			db.transaction(function (tx) {  
-				tx.executeSql('UPDATE subscriptions (title, url) VALUES ('+attrs.title+', '+title.url+') WHERE id = "'+attrs.id+'"', function(){
-					retorno.done();
-				});  
-			});
-
-		}
+		db.transaction(function (tx) {  
+			tx.executeSql(sql, function(){
+				console.log('cadastrou!');
+				retorno.done();
+			});  
+		}, function(){
+			console.log('error no save')
+		});
 
 		return retorno;
 
@@ -61,22 +84,54 @@ App.Model.Subscription = Backbone.Model.extend({
 
 	fetch: function(){
 
+		var that = this;
+
 		var db = this.openDb();
-		var retorno = new Retorno();		
+		var retorno = new Retorno();
+
+		console.log('Listando...');		
 
 		db.transaction(function (tx) {  
-			tx.executeSql('SELECT * FROM subscriptions', [], function (tx, results) {
+			tx.executeSql('SELECT * FROM subscriptions', [], function (tx, results) {				
+
 				if(results.rows.length > 0){
 					retorno.done(results.rows);	
 				}else{
 					retorno.done(false);
 				}
 				
+			}, function(){
+				console.log('error no fetch')
 			});
 		});
 
 		return retorno; 
 
+	},
+
+	drop: function(){
+
+		var that = this;
+
+		var db = this.openDb();
+
+		db.transaction(function (tx) {  
+			tx.executeSql('DROP TABLE subscriptions', function(){
+				console.log('excluiu!');
+				retorno.done();
+			});  
+		}, function(){
+			console.log('error no drop')
+		});
+
+	},
+
+	_getLastId: function(){
+
+	},
+
+	handleError: function(error){		
+		console.error(error, arguments.callee.caller);		
 	}
 
 

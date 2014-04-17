@@ -16,10 +16,20 @@ var
     fs = require('fs'),
 
     // url object
-    url = require('url'),
+    url = require('url'),    
 
     isWin;
 
+// Global App skeleton for backbone
+var App = {
+  Controller: {},
+  View: {},
+  Model: {},
+  Page: {}
+};
+
+var Mediator = require("mediator-js").Mediator;
+        window.mediator = new Mediator();
 
 isWin = (process.platform === 'win32');
 isLinux = (process.platform === 'linux');
@@ -34,14 +44,6 @@ if (isOSX)   { BUTTON_ORDER = ['close', 'min', 'max']; }
 // render header buttons
 $("#header").html(_.template($('#header-tpl').html(), {buttons: BUTTON_ORDER}));
 
-// Global App skeleton for backbone
-var App = {
-  Controller: {},
-  View: {},
-  Model: {},
-  Page: {}
-};
-
 // Set the app title (for Windows mostly)
 win.title = 'Clear Reader';
 
@@ -51,11 +53,11 @@ win.focus();
 /**
  * Show 404 page on uncaughtException
  */
-process.on('uncaughtException', function(err) {
+/*process.on('uncaughtException', function(err) {
     if (console) {
         console.log(err);
     }
-});
+});*/
 
 // Cria o banco de dados
 /*var db = openDatabase('clear-reader', '1.0', 'Banco de dados do Clear Reader', 2 * 1024 * 1024);
