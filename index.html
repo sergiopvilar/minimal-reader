@@ -11,21 +11,19 @@
 
     <header id="header"></header>
 
-    <script id="header-tpl" type="text/x-template">
-        <nav class="btn-set <%= process.platform %>">
-
-          <% _.each(buttons, function(button) { %>
-            <button class="btn-os <%= button %>"></button>
-          <% }); %>
-        </nav>
-
-        <h1>Minimal Reader</h1>
-    </script>
-
     <div id="notification"></div>
 
+    <div id="catalog-select">
+
+      <h4>Feeds</h4>
+      <ul class="categories">
+
+      </ul>
+    </div>
+
     <section class="container">
-      <sidebar class="hidden"></sidebar>
+        <sidebar class="hidden"></sidebar>
+        <article class="feeds"></article>
     </section>
 
     <div class="popcorn-load hidden">
@@ -38,12 +36,57 @@
       <a href="javascript:;" class="btn-close"><img src="/images/close.svg" width="50" /></a>
     </div>
 
+    <div class="no-subscription hidden">
+      <div class="wrapper">
+        <span class="text">Você ainda não se inscreveu em nenhum feed, gostaria de adicionar o primeiro?</span>
+            <div id="homeAddSubscription"></div>
+        <br/>
+      </div>
+    </div>
+
+    <!-- Templates -->
+
+    <script id="header-tpl" type="text/x-template">
+        <nav class="btn-set <%= process.platform %>">
+
+          <% _.each(buttons, function(button) { %>
+            <button class="btn-os <%= button %>"></button>
+          <% }); %>
+        </nav>
+
+        <h1>Minimal Reader</h1>
+    </script>
+
     <script id="subscriptions-tpl" type="text/x-template">
-        <div id="subscriptions">
+
             <% _.each(subscriptions, function(s){ %>
                 <li class="subscription"><a href="#<%=s.id%>"><%=s.title%></a></li>
             <% }); %>
+
+    </script>
+
+    <script id="feed-item" type="text/x-template">
+        <div class="feed-bar">
+            <a href="#" class="close">Voltar</a>
         </div>
+        <div class="feed-item-view">
+
+            <h1><%=feed.title%></h1>
+
+            <div class="feed-content">
+                <%=feed.description%>
+            </div>
+
+        </div>
+
+    </script>
+
+    <script id="feeds-tpl" type="text/x-template">
+
+            <% _.each(feeds, function(s){ %>
+                <li class="feed-item"><a href="#<%=s.id%>"><%=s.title%></a></li>
+            <% }); %>
+
     </script>
 
     <script id="add-subscription-tpl" type="text/x-template">
@@ -55,19 +98,12 @@
 
     </script>
 
-    <div class="no-subscription hidden">
-      <div class="wrapper">
-        <span class="text">Você ainda não se inscreveu em nenhum feed, gostaria de adicionar o primeiro?</span>
-            <div id="homeAddSubscription"></div>
-        <br/>
-      </div>
-    </div>
-
     <!-- Vendor -->
     <script src="vendor/jquery/dist/jquery.min.js"></script>
     <script src="vendor/underscore/underscore.js"></script>
     <script src="vendor/backbone/backbone.js"></script>
     <script src="vendor/mediator-js/lib/mediator.js"></script>
+    <script src="vendor/bootbox/bootbox.js"></script>
 
     <script src="js/vendor/settings.js"></script>
 
@@ -76,51 +112,21 @@
     <script src="js/frontend/ui.js"></script>
 
     <script src="js/frontend/model/subscription.js"></script>
+    <script src="js/frontend/model/feed.js"></script>
+
     <script src="js/frontend/controller/subscription.js"></script>
+    <script src="js/frontend/controller/feed.js"></script>
 
     <script src="js/frontend/view/AddSubscription.js"></script>
+    <script src="js/frontend/view/ListSubscriptions.js"></script>
+    <script src="js/frontend/view/ListFeeds.js"></script>
+    <script src="js/frontend/view/FeedItem.js"></script>
+
     <script src="js/frontend/page/home.js"></script>
 
     <script type="text/javascript">
         new App.Page.Home();
     </script>
 
-
-    <!--
-    <script src="js/vendor/config.js"></script>
-
-
-
-    <script src="js/language.js"></script>
-    <script src="js/tracking.js"></script>
-    <script src="js/updater.js"></script>
-
-
-
-    <script src="js/frontend/player.js"></script>
-
-
-    <script src="js/frontend/providers/torrents.js"></script>
-
-
-    <script src="js/frontend/models/movie.js"></script>
-    <script src="js/frontend/views/page.js"></script>
-    <script src="js/frontend/views/listview.js"></script>
-    <script src="js/frontend/views/movie.js"></script>
-    <script src="js/frontend/views/sidebar.js"></script>
-    <script src="js/frontend/controllers/home.js"></script>
-    <script src="js/frontend/controllers/search.js"></script>
-    <script src="js/frontend/controllers/filter.js"></script>
-    <script src="js/frontend/router.js"></script>
-
-
-    <script src="rc/index.js"></script>
-
-
-    <script src="js/vendor/video-js/video.dev.js"></script>
-    <script src="js/vendor/videojsplugins.js"></script>
-    <script src="js/vendor/dragwindow.js"></script>
-
-    <script>userTracking.event('App Start', 'Ready - '+Settings.get('version'),  (Math.round(((new Date()*1) - __startTime) / 100) * 100) +'ms' ).send();</script-->
   </body>
 </html>

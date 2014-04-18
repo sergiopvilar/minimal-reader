@@ -85,6 +85,7 @@ a { text-decoration: none; }
   text-align: center;
   width: 100%;
   background-image: linear-gradient(to bottom, #ffffff 0%, #cdcdcd 100%);
+  border-bottom: 1px solid #aaa;
   // TODO: Fazer isso aqui depois
   //border-top-left-radius: 10px;
   //border-top-right-radius: 10px;
@@ -228,12 +229,12 @@ a { text-decoration: none; }
   top: $header_height;
   padding: 20px;
   height: calc(100% - #{$header_height});
-  background: #121212;
+  background: #ccc;
   border-right: 1px solid #000;
   font-family: 'Myriad Pro', 'Lucida Grande', sans-serif;
 
   h4 {
-    margin-top: 40px;
+    margin-top: 5px;
     color: #404040;
     font-weight: bold;
     margin-bottom: 10px;
@@ -302,6 +303,14 @@ a { text-decoration: none; }
   overflow: hidden;
   margin: #{$header_height} 0 0 180px;
   position: relative;
+  height: 100%;
+
+  .feeds{
+      overflow-y: scroll;
+      overflow-x: hidden;
+      height: 94%;
+  }
+
 }
 
 
@@ -491,5 +500,17 @@ body.has-notification {
       font-weight:normal;
     }
   }
+
+}
+
+.feed-item{
+
+    display: block;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+
+    a{
+        color:#666;
+    }
 
 }
