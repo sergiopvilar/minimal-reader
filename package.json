@@ -4,8 +4,8 @@
   "window": {
     "title": "Clean Reader",
     "icon": "images/icon.png",
-    "toolbar": true,
-    "frame": true,
+    "toolbar": false,
+    "frame": false,
     "width": 700,
     "height": 700,
     "min_width": 520,
