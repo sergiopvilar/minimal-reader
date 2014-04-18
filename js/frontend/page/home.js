@@ -19,6 +19,9 @@ App.Page.Home = function(){
 		// Verifica se o usuário tem algum feed cadastrado
 		var noSubscription = $('.no-subscription');
 
+		// Atualiza os feeds atuais
+		var m = new App.Model.Subscription();
+
 		SubscriptionController.list(function(data){
 
 			if(!data){
@@ -27,10 +30,25 @@ App.Page.Home = function(){
 				noSubscription.removeClass('hidden');
 
 			}else{
-				that.listSubscriptions();
+
+				m.fetch(true).done(function(){
+					that.listSubscriptions();
+				});
+
 			}
 
 		});
+
+		setTimeout(function(){
+
+			console.log('Atualizando os feeds');
+
+			var m = new App.Model.Subscription();
+			m.fetch(true).done(function(){
+				that.listSubscriptions();
+			});
+
+		}, 5 * 60 * 1000);
 
 	};
 

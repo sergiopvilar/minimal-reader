@@ -110,7 +110,7 @@ App.Model.Subscription = Backbone.Model.extend({
 		var that = this;
 
 		if(typeof update === 'undefined'){
-			update = true;
+			update = false;
 		}
 
 		var db = this.openDb();
@@ -145,6 +145,12 @@ App.Model.Subscription = Backbone.Model.extend({
 		});
 
 		return retorno;
+
+	},
+
+	updateAll: function(){
+
+		that.fetch(true);
 
 	},
 
@@ -213,7 +219,6 @@ App.Model.Subscription = Backbone.Model.extend({
 		  }
 
 		});
-
 
 	},
 

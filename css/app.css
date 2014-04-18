@@ -1357,6 +1357,11 @@ sidebar .feed-item-view {
   color: #666;
   overflow-y: scroll;
   height: calc(100% - 108px);
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
 }
 sidebar .feed-item-view h1 {
   font-size: 18px;
