@@ -4,11 +4,14 @@
   "window": {
     "title": "Clean Reader",
     "icon": "images/icon.png",
-    "toolbar": true,    
+    "toolbar": true,
     "width": 700,
     "height": 700,
     "min_width": 520,
     "min_height": 700,
     "resizable": true
+  },
+  "dependencies": {
+    "mediator-js": "~0.9.7"
   }
 }

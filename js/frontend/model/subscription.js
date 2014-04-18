@@ -2,8 +2,10 @@
 * @Author: sergiovilar
 * @Date:   2014-03-18 15:10:07
 * @Last Modified by:   sergiovilar
-* @Last Modified time: 2014-03-18 16:43:01
+* @Last Modified time: 2014-04-17 21:57:42
 */
+
+subscriptions_created = false;
 
 App.Model.Subscription = Backbone.Model.extend({
 
@@ -23,33 +25,29 @@ App.Model.Subscription = Backbone.Model.extend({
 
 		var that = this;
 
-		var db = this.openDb();				
+		if(!subscriptions_created){
 
-		db.transaction(function (tx) {  
+			var db = this.openDb();				
 
-			console.log('Criando a tabela');
-			
-			//tx.executeSql('CREATE TABLE IF NOT EXISTS subscriptions (id unique INTEGER AUTO_INCREMENT, title, url)', function(){
+			db.transaction(function (tx) {  		
 
-			tx.executeSql('CREATE TABLE IF NOT EXISTS subscriptions (id unique, title, url)', function(){
+				tx.executeSql('CREATE TABLE IF NOT EXISTS subscriptions (id INTEGER PRIMARY KEY AUTOINCREMENT, title, url)', [], function(){
 
-				console.log('criou!');
+					subscriptions_created = true;
 
-				if(callback){
-					callback(that);
-				}					
+					if(callback){
+						callback(that);
+					}					
 
-			}, function(error){
-				console.log('error no create')
-				console.log(error);
+				}, that.handleError);  
 
-				if(callback){
-					callback(that);
-				}	
+			});
 
-			});  
-
-		});
+		}else{
+			if(callback){
+				callback(that);
+			}
+		}		
 
 	},
 
@@ -70,12 +68,11 @@ App.Model.Subscription = Backbone.Model.extend({
 		}		
 
 		db.transaction(function (tx) {  
-			tx.executeSql(sql, function(){
-				console.log('cadastrou!');
+			
+			tx.executeSql(sql, [], function(){
 				retorno.done();
-			});  
-		}, function(){
-			console.log('error no save')
+			}, that.handleError);  
+
 		});
 
 		return retorno;
@@ -89,8 +86,6 @@ App.Model.Subscription = Backbone.Model.extend({
 		var db = this.openDb();
 		var retorno = new Retorno();
 
-		console.log('Listando...');		
-
 		db.transaction(function (tx) {  
 			tx.executeSql('SELECT * FROM subscriptions', [], function (tx, results) {				
 
@@ -100,33 +95,10 @@ App.Model.Subscription = Backbone.Model.extend({
 					retorno.done(false);
 				}
 				
-			}, function(){
-				console.log('error no fetch')
-			});
+			}, that.handleError);
 		});
 
 		return retorno; 
-
-	},
-
-	drop: function(){
-
-		var that = this;
-
-		var db = this.openDb();
-
-		db.transaction(function (tx) {  
-			tx.executeSql('DROP TABLE subscriptions', function(){
-				console.log('excluiu!');
-				retorno.done();
-			});  
-		}, function(){
-			console.log('error no drop')
-		});
-
-	},
-
-	_getLastId: function(){
 
 	},
 

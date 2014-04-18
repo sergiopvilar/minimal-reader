@@ -35,7 +35,7 @@ App.View.AddSubscription = Backbone.View.extend({
 			};
 
 			that.Controller.add(sendObject, function(){
-				mediator.publish('subscription_added');				
+				mediator.publish('subscription_added', true);				
 			});
 
 			return false;
