@@ -33,18 +33,35 @@ sidebar {
   .feed-item-view{
 
     padding:20px;
-
     color:#666;
+    overflow-y: scroll;
+    height: calc(100% - 108px);
 
     h1{
         font-size:18px;
         font-weight: bold;
         margin-bottom: 20px;
+        line-height:150%;
     }
 
     .feed-content{
         font-size:16px;
         line-height:150%;
+
+        img{
+            max-width:100%;
+            height:auto;
+        }
+
+        p{
+            margin-bottom:15px;
+            font-size:14px;
+        }
+
+        a{
+            color:#19B6C4;
+        }
+
     }
 
   }

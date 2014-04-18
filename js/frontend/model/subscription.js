@@ -201,11 +201,13 @@ App.Model.Subscription = Backbone.Model.extend({
 
 		  while (item = stream.read()) {
 
+			console.log(item);
+
 			FeedController.add({
 				subscription_id: id,
 				title: item['rss:title']['#'],
 				link: item['rss:link']['#'],
-				description: item['rss:description']['#'].replace(/"/g, "'"),
+				description: item['description'].replace(/"/g, "'"),
 			});
 
 		  }

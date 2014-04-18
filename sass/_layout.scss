@@ -298,7 +298,7 @@ a { text-decoration: none; }
 
 
 // Container
-.container {
+.app-container {
   height: calc(100% - #{$header_height});
   overflow: hidden;
   margin: #{$header_height} 0 0 180px;
@@ -316,7 +316,7 @@ a { text-decoration: none; }
 
 // Notifications displace the UI a bit
 body.has-notification {
-  .container {
+  .app-container {
     height: calc(100% - #{$header_height} - #{$notification_height});
     margin: $header_height + $notification_height 0 0 180px;
   }
@@ -513,4 +513,14 @@ body.has-notification {
         color:#666;
     }
 
+}
+
+#icons-bar{
+    position:absolute;bottom: 0px;
+    width: 100%;
+    left: 0px;
+    padding-left: 8px;
+    height: 25px;
+    background: #eee;
+    padding-top: 8px;
 }

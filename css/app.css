@@ -606,20 +606,20 @@ a {
   color: rgba(255, 255, 255, 0.4);
 }
 
-.container {
+.app-container {
   height: calc(100% - 45px);
   overflow: hidden;
   margin: 45px 0 0 180px;
   position: relative;
   height: 100%;
 }
-.container .feeds {
+.app-container .feeds {
   overflow-y: scroll;
   overflow-x: hidden;
   height: 94%;
 }
 
-body.has-notification .container {
+body.has-notification .app-container {
   height: calc(100% - 45px - 45px);
   margin: 90px 0 0 180px;
 }
@@ -817,6 +817,17 @@ body.has-notification #notification {
 }
 .feed-item a {
   color: #666;
+}
+
+#icons-bar {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  left: 0px;
+  padding-left: 8px;
+  height: 25px;
+  background: #eee;
+  padding-top: 8px;
 }
 
 .movie-list {
@@ -1344,15 +1355,29 @@ sidebar .feed-bar a.close {
 sidebar .feed-item-view {
   padding: 20px;
   color: #666;
+  overflow-y: scroll;
+  height: calc(100% - 108px);
 }
 sidebar .feed-item-view h1 {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 20px;
+  line-height: 150%;
 }
 sidebar .feed-item-view .feed-content {
   font-size: 16px;
   line-height: 150%;
+}
+sidebar .feed-item-view .feed-content img {
+  max-width: 100%;
+  height: auto;
+}
+sidebar .feed-item-view .feed-content p {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+sidebar .feed-item-view .feed-content a {
+  color: #19B6C4;
 }
 sidebar.hidden {
   right: -10px;

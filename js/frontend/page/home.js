@@ -47,10 +47,34 @@ App.Page.Home = function(){
 			new App.View.FeedItem({id: id});
 		});
 
-		$('.container').delegate('.close', 'click', function(){
+		$('.app-container').delegate('.close', 'click', function(){
 			console.log('clicou');
-			$('.container').find('sidebar').addClass('hidden');
+			$('.app-container').find('sidebar').addClass('hidden');
 			return false;
+		});
+
+		$('#add-subscription').click(function(){
+
+			var SubscriptionController = new App.Controller.Subscription();
+
+			var value = window.prompt('Insira a URL do Feed:');
+
+			var sendObject = {
+				title: '',
+				url: value
+			};
+
+			SubscriptionController.add(sendObject, function(){
+				mediator.publish('subscription_added', true);
+			});
+
+		});
+
+		$('.feed-item-view').on('click', function(){
+
+			gui.Shell.openExternal($(this).attr('href'));
+			return false;
+
 		});
 
 	};
@@ -60,7 +84,7 @@ App.Page.Home = function(){
 		console.log('atualizando');
 
 		new App.View.ListSubscriptions({el: $('#catalog-select').find('.categories')});
-		new App.View.ListFeeds({el: $('.container').find('.feeds')});
+		new App.View.ListFeeds({el: $('.app-container').find('.feeds')});
 
 	};
 

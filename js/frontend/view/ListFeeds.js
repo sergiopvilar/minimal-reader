@@ -50,6 +50,7 @@ App.View.ListFeeds = Backbone.View.extend({
 
 		mediator.subscribe('subscription_selected', function(subscription_id){
 
+			$('.app-container').find('sidebar').addClass('hidden');
 			that.Controller.listById(subscription_id, function(data){
 				that.render(data);
 			});
