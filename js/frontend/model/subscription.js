@@ -2,7 +2,7 @@
 * @Author: sergiovilar
 * @Date:   2014-03-18 15:10:07
 * @Last Modified by:   sergiovilar
-* @Last Modified time: 2014-04-17 21:57:42
+* @Last Modified time: 2014-04-21 15:58:34
 */
 
 subscriptions_created = false;
@@ -128,7 +128,6 @@ App.Model.Subscription = Backbone.Model.extend({
 						var obj = results.rows.item(i);
 
 						if(update){
-							console.log('vai pedir o update');
 							that._updateFeeds(obj.id, obj.url);
 						}
 
@@ -207,14 +206,36 @@ App.Model.Subscription = Backbone.Model.extend({
 
 		  while (item = stream.read()) {
 
-			console.log(item);
+		  	var title,
+		  		link,
+		  		description;
 
-			FeedController.add({
-				subscription_id: id,
-				title: item['rss:title']['#'],
-				link: item['rss:link']['#'],
-				description: item['description'].replace(/"/g, "'"),
-			});
+			try{
+
+				title = item['rss:title']['#'];
+				link = item['rss:link']['#'];
+				description = item['description'];
+
+			}catch(e){
+
+				title = item['title'];
+				link = item['link'];
+				description = item['description'];
+
+			}finally{
+
+				if(description !== null){
+
+					FeedController.add({
+						subscription_id: id,
+						title: title,
+						link: link,
+						description: description.replace(/"/g, "'"),
+					});
+
+				}				
+
+			}			
 
 		  }
 

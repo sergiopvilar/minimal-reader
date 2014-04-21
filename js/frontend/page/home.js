@@ -8,6 +8,7 @@
 App.Page.Home = function(){
 
 	var SubscriptionController = new App.Controller.Subscription();
+	var open = require("open");
 
 	this.init = function(){
 
@@ -77,29 +78,35 @@ App.Page.Home = function(){
 
 			var value = window.prompt('Insira a URL do Feed:');
 
-			var sendObject = {
-				title: '',
-				url: value
-			};
+			if(value !== null){
 
-			SubscriptionController.add(sendObject, function(){
-				mediator.publish('subscription_added', true);
-			});
+				var sendObject = {
+					title: '',
+					url: value
+				};
+
+				SubscriptionController.add(sendObject, function(){
+					mediator.publish('subscription_added', true);
+				});
+
+			}
 
 		});
 
-		$('.feed-item-view').on('click', function(){
+		$('body').delegate('a','click', function(e){
 
-			gui.Shell.openExternal($(this).attr('href'));
-			return false;
+			var href = $(this).attr('href');
+
+			if(href.charAt(0) !== '#'){
+				open($(this).attr('href'));
+				return false;
+			}
 
 		});
 
 	};
 
 	this.listSubscriptions = function(){
-
-		console.log('atualizando');
 
 		new App.View.ListSubscriptions({el: $('#catalog-select').find('.categories')});
 		new App.View.ListFeeds({el: $('.app-container').find('.feeds')});

@@ -4,8 +4,8 @@
   "window": {
     "title": "Clean Reader",
     "icon": "images/icon.png",
-    "toolbar": false,
-    "frame": false,
+    "toolbar": true,
+    "frame": true,
     "width": 700,
     "height": 700,
     "min_width": 520,
@@ -15,6 +15,7 @@
   "dependencies": {
     "mediator-js": "~0.9.7",
     "request": "~2.34.0",
-    "feedparser": "~0.16.6"
+    "feedparser": "~0.16.6",
+    "open": "0.0.5"
   }
 }

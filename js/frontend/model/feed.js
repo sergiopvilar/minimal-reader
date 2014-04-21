@@ -2,7 +2,7 @@
 * @Author: sergiovilar
 * @Date:   2014-03-18 15:10:07
 * @Last Modified by:   sergiovilar
-* @Last Modified time: 2014-04-18 08:28:07
+* @Last Modified time: 2014-04-21 15:54:57
 */
 
 feeds_created = false;
@@ -117,6 +117,8 @@ App.Model.Feed = Backbone.Model.extend({
         if(typeof options !== 'undefined' && options.id){
             sql += ' WHERE id = "'+options.id+'"';
         }
+
+        sql += ' ORDER BY id DESC';
 
         db.transaction(function (tx) {
             tx.executeSql(sql , [], function (tx, results) {
