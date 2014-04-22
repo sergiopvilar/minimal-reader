@@ -7,8 +7,8 @@ Um simples leitor de RSS desenvolvido com node-webkit
 
 # Download
 
-* 0.1.0
-    * [Mac OSX](https://drive.google.com/file/d/0BxrtThrgZ6vtZmIwTTRPcHNzdVk/edit?usp=sharing)
+* 0.1.2
+    * [Mac OSX](http://107.170.217.242/minimal-reader/minimal-reader_0_1_2.rar)
 
 ## Rodando em ambiente de desenvolvimento
 
