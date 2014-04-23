@@ -18,7 +18,7 @@ App.Model.Subscription = Backbone.Model.extend({
 	db: 'clear-reader',
 
 	openDb: function(){
-		return window.clearReaderDB;;
+		return window.clearReaderDB;
 	},
 
 	initialize: function(callback){
